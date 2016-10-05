@@ -1,0 +1,5 @@
+!ymlDefine.YmlDefine$ConsoleConfig
+DBCredentialConfigFilePath: config/DBLoginCredential.yml
+WMRequestListenerPort: 9988
+defaultTargetNodeId: testNode001
+opencvJarPath: ''

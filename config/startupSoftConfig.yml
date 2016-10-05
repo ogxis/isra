@@ -1,0 +1,6 @@
+!ymlDefine.YmlDefine$StartUpSoftConfig
+DBCredentialConfigFilePath: config/DBLoginCredential.yml
+nodeId: testNode001
+opencvJarPath: ''
+shutdownTimeoutEnable: true
+shutdownTimeoutMilli: 300000

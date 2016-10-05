@@ -1,0 +1,16 @@
+addcrawler c01 rawDataDistCacl
+addcrawler c02 rawDataICL
+addcrawler c03 DM_STISS
+addcrawler c04 DM_RSG
+addcrawler c05 DM_SCCRS
+addcrawler c06 DM_ACTGDR
+addcrawler c07 DM_RSGFSB
+addcrawler c08 DM_RERAUP
+addstmworker stm01 globalDistUpdate
+addstmworker stm02 crawlerTaskAssign
+addstmworker stm04 rawDataGCA
+addstmworker stm05 rawDataICLGCA
+addstmworker stm06 expGCA
+addstmworker stm07 GCAMain
+addstmworker stm08 rawDataFetchFromDevice
+addWMWorker wm01 full

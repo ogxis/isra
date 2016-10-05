@@ -1,0 +1,8 @@
+addstmworker stm01 globalDistUpdate
+addstmworker stm02 crawlerTaskAssign
+addstmworker stm03 WMTaskAssign
+addstmworker stm04 rawDataGCA
+addstmworker stm05 rawDataICLGCA
+addstmworker stm06 expGCA
+addstmworker stm07 POFeedbackGCA
+addstmworker stm08 GCAMain

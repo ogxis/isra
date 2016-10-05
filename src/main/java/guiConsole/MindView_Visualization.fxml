@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiConsole.VisualizationController">
+   <center>
+      <VBox minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
+         <children>
+            <SplitPane fx:id="main_resize_splitpane" dividerPositions="0.5" minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+               <items>
+                  <VBox fx:id="mainGraphPane_pane_vBox" minHeight="0.0" minWidth="0.0" visible="false">
+                     <children>
+                        <Label text="MainGraph" />
+                        <AnchorPane fx:id="mainGraphPane_draw_anchorPane" VBox.vgrow="ALWAYS" />
+                        <HBox alignment="BOTTOM_RIGHT" minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <TextField fx:id="mainGraphPane_currentTreeRid_textField" editable="false" prefWidth="130.0" promptText="Current Tree Rid" />
+                              <TextField fx:id="mainGraphPane_selectedRid_textField" editable="false" prefWidth="100.0" promptText="Selected Rid" />
+                              <ToggleButton fx:id="mainGraphPane_transform_toggleButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#mainMouseTransform" text="Transform" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <SplitPane fx:id="nonMainGraph_pane_splitPane" dividerPositions="0.8" minHeight="0.0" minWidth="0.0" orientation="VERTICAL">
+                     <items>
+                        <SplitPane fx:id="s2dgSV_resize_splitPane" dividerPositions="0.5" minHeight="0.0" minWidth="0.0">
+                           <items>
+                              <VBox fx:id="s2dg_pane_vBox" minHeight="0.0" minWidth="0.0" visible="false">
+                                 <children>
+                                    <Label text="Selected 2DGraph" />
+                                    <AnchorPane fx:id="s2dg_draw_anchorPane" minHeight="0.0" minWidth="0.0" VBox.vgrow="SOMETIMES" />
+                                    <HBox alignment="BOTTOM_RIGHT">
+                                       <children>
+                                          <TextField fx:id="s2dg_selectedRid_textField" editable="false" prefWidth="100.0" promptText="Selected Rid" />
+                                          <ToggleButton fx:id="s2dg_transform_toggleButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#secondaryMouseTransform" text="Transform" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="sv_pane_vBox" minHeight="0.0" minWidth="0.0" visible="false">
+                                 <children>
+                                    <Label text="Selected Visualization AV" />
+                                    <SplitPane dividerPositions="0.5, 0.5" minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+                                       <items>
+                                          <VBox fx:id="sv_paneVisual_vBox" minHeight="0.0" minWidth="0.0" visible="false">
+                                             <children>
+                                                <Label text="Visual" />
+                                                <ImageView fx:id="sv_visualImg_imageView" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES" />
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="sv_paneAudio_vBox" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" visible="false">
+                                             <children>
+                                                <Label text="Audio" />
+                                                <VBox>
+                                                   <children>
+                                                      <Label text="Wave:" />
+                                                      <ImageView fx:id="sv_audio_waveDiagram_imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <HBox>
+                                                         <children>
+                                                            <ToggleButton fx:id="sv_audio_waveDiagram_toggleButton" mnemonicParsing="false" text="Diagram" />
+                                                            <ToggleButton fx:id="sv_audio_mute_toggleButton" mnemonicParsing="false" text="Mute" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="sv_paneSensor_vBox" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" visible="false">
+                                             <children>
+                                                <Label text="Sensor" />
+                                                <VBox minHeight="0.0" minWidth="0.0" VBox.vgrow="SOMETIMES">
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Label prefHeight="26.0" prefWidth="50.0" text="FLM:" />
+                                                            <TextField fx:id="sv_sensor_flm_textField" editable="false" prefWidth="50.0">
+                                                               <tooltip>
+                                                                  <Tooltip text="Front Left Motor" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                         </children></HBox>
+                                                      <HBox layoutX="10.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" prefWidth="50.0" text="FRM:" />
+                                                            <TextField fx:id="sv_sensor_frm_textField" editable="false" prefWidth="50.0">
+                                                               <tooltip>
+                                                                  <Tooltip text="Front Right Motor" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                         </children></HBox>
+                                                      <HBox layoutX="10.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" prefWidth="50.0" text="BLM:" />
+                                                            <TextField fx:id="sv_sensor_blm_textField" editable="false" prefWidth="50.0">
+                                                               <tooltip>
+                                                                  <Tooltip text="Bottom Left Motor" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                         </children></HBox>
+                                                      <HBox layoutX="10.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" prefWidth="50.0" text="BRM:" />
+                                                            <TextField fx:id="sv_sensor_brm_textField" editable="false" prefWidth="50.0">
+                                                               <tooltip>
+                                                                  <Tooltip text="Bottom Right Motor" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                         </children></HBox>
+                                                   </children></VBox>
+                                             </children>
+                                          </VBox>
+                                       </items>
+                                    </SplitPane>
+                                    <HBox VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <ToggleButton fx:id="sv_visual_toggleButton" mnemonicParsing="false" onAction="#audioVisualSensorManage" text="Visual" />
+                                          <ToggleButton fx:id="sv_audio_toggleButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#audioVisualSensorManage" text="Audio" />
+                                          <ToggleButton fx:id="sv_sensor_toggleButton" layoutX="68.0" layoutY="10.0" mnemonicParsing="false" onAction="#audioVisualSensorManage" text="Sensor" />
+                                          <Label prefHeight="26.0" text="FPS: " />
+                                          <TextField fx:id="sv_visualFps_textField" editable="false" text="N/A">
+                                             <tooltip>
+                                                <Tooltip text="FPS for visual. N/A except Sensor View tab" />
+                                             </tooltip>
+                                          </TextField>
+                                          <TextField fx:id="sv_audioFps_textField" editable="false" layoutX="116.0" layoutY="10.0" text="N/A">
+                                             <tooltip>
+                                                <Tooltip text="FPS for audio. N/A except Sensor View tab" />
+                                             </tooltip>
+                                          </TextField>
+                                          <TextField fx:id="sv_sensorFps_textField" editable="false" layoutX="160.0" layoutY="10.0" text="N/A">
+                                             <tooltip>
+                                                <Tooltip text="FPS for sensor. N/A except Sensor View tab" />
+                                             </tooltip>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                        <VBox fx:id="tc_pane_vBox" minHeight="0.0" minWidth="0.0" visible="false">
+                           <children>
+                              <Label text="FSV Time Control" />
+                              <Slider fx:id="tc_timePoint_slider" majorTickUnit="10.0" minorTickCount="1" onMouseReleased="#timelineSliderValueChanged" />
+                              <HBox>
+                                 <children>
+                                    <Label text="Selection:" />
+                                    <TextField fx:id="tc_depth_textField" alignment="TOP_LEFT" onAction="#timelineValueUpdateTextField" promptText="Depth" />
+                                    <Label text="Current:" />
+                                    <TextField fx:id="tc_depthCurrent_textField" alignment="TOP_LEFT" editable="false" promptText="Current Depth" />
+                                    <ToggleButton fx:id="tc_timePointPlay_toggleButton" mnemonicParsing="false" onAction="#playToggleButton" text="Play" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="Min:" />
+                                    <TextField fx:id="tc_timePointMin_textField" alignment="TOP_LEFT" editable="false" promptText="Min" />
+                                    <Label text="Max:" />
+                                    <TextField fx:id="tc_timePointMax_textField" alignment="TOP_LEFT" editable="false" promptText="Max" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Label BorderPane.alignment="TOP_LEFT" />
+   </bottom>
+</BorderPane>

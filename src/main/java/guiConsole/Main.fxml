@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiConsole.MainController">
+   <top>
+      <HBox prefHeight="26.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="main_home_button" mnemonicParsing="false" onAction="#setVisibleHomePane" prefHeight="28.0" text="Home" />
+            <Button fx:id="main_monitor_button" mnemonicParsing="false" onAction="#setVisibleMonitorPane" prefHeight="28.0" text="Monitor" />
+            <Button fx:id="main_quit_button" mnemonicParsing="false" onAction="#mainQuit" prefHeight="28.0" text="Quit" />
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" HBox.hgrow="SOMETIMES">
+              <items>
+                  <HBox fx:id="main_dbStatus_box" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="28.0" text="DB: ">
+                           <tooltip>
+                              <Tooltip text="Connected DB Address" />
+                           </tooltip>
+                        </Label>
+                        <TextField fx:id="main_dbStatus_textField" editable="false" text="Not Connected" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="main_stnStatus_box" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="34.0" prefWidth="35.0" text="STN: ">
+                           <tooltip>
+                              <Tooltip text="Connected STN Count." />
+                           </tooltip>
+                        </Label>
+                        <TextField fx:id="main_stnStatus_textField" editable="false" text="Not Connected" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+              </items>
+            </SplitPane>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.8" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <StackPane>
+               <children>
+                  <HBox fx:id="home_pane_hbox" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <VBox alignment="TOP_CENTER" minHeight="0.0" minWidth="0.0" spacing="15.0" HBox.hgrow="NEVER">
+                           <children>
+                              <Label text="Home" />
+                              <Button fx:id="homeLHS_status_button" mnemonicParsing="false" onAction="#setVisibleHomeStatusPane" text="Status" />
+                              <Button fx:id="homeLHS_preference_button" mnemonicParsing="false" onAction="#setVisibleHomePreferencePane" text="Preference" />
+                              <Button fx:id="homeLHS_help_button" mnemonicParsing="false" onAction="#setVisibleHomeHelpPane" text="Help" />
+                              <Button fx:id="homeLHS_about_button" mnemonicParsing="false" onAction="#setVisibleHomeAboutPane" text="About" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                            <AnchorPane fx:id="homeRHS_status_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Status" underline="true" />
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="TotalNodeSize:" />
+                                                <TextField fx:id="homeRHS_status_totalNodeSize_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Total of registered node." />
+                                                   </tooltip></TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="OnlineNodeSize:" />
+                                                <TextField fx:id="homeRHS_status_onlineNodeSize_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Total of currently online node." />
+                                                   </tooltip></TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="WorkerThreadSize: " />
+                                                <TextField fx:id="homeRHS_status_workerThreadSize_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Total of currently online worker thread (1 thread per task)." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="SystemUptime:" />
+                                                <TextField fx:id="homeRHS_status_systemUptime_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Uptime in seconds." />
+                                                   </tooltip></TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="SystemUptimeSince: " />
+                                                <TextField fx:id="homeRHS_status_systemUptimeSince_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Uptime since what time, dd mm yy sec millisec" />
+                                                   </tooltip></TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="130.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="RebootCount:" />
+                                                <TextField fx:id="homeRHS_status_rebootCount_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="How many times it had rebooted as a whole." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="156.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="ConsoleUptime:" />
+                                                <TextField fx:id="homeRHS_status_consoleUptime_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Console uptime in second." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="156.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="ConsoleUptimeSince: " />
+                                                <TextField fx:id="homeRHS_status_consoleUptimeSince_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Console uptime in dd mm yy sec millisec" />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="182.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="EPOCH: " />
+                                                <TextField fx:id="homeRHS_status_epoch_textField" editable="false" text="NULL" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Absolute start time of the system." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="208.0" prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="Continue here." />
+                                                <TextField editable="false" text="NULL" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="WorkingDirectory:" />
+                                                <TextField fx:id="homeRHS_status_workingDirectory_textField" editable="false" promptText="Current Working Dir" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Current working directory, to let you know the relative filePath if needed." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="homeRHS_preference_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Preference" underline="true" />
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="AutoConnectDB" />
+                                                <CheckBox fx:id="homeRHS_preference_autoConnectDB_checkBox" mnemonicParsing="false">
+                                                   <tooltip>
+                                                      <Tooltip text="Auto Connect DB during startup according to the credential given in DBCredentialFilePath." />
+                                                   </tooltip>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="7.0" prefWidth="533.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="150.0" text="DBCredentialFilePath:" />
+                                                <TextField fx:id="homeRHS_preference_DBCredentialFilePath_textField" HBox.hgrow="SOMETIMES">
+                                                   <tooltip>
+                                                      <Tooltip text="Relative or absolute file path to the configuration file." />
+                                                   </tooltip>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children></VBox>
+                                    <Label prefHeight="6.0" prefWidth="202.0" text="Note: Remember to click save!" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                    <HBox alignment="BOTTOM_RIGHT" layoutX="79.0" layoutY="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="homeRHS_preference_cancel_button" mnemonicParsing="false" text="Cancel" />
+                                          <Button fx:id="homeRHS_preference_save_button" mnemonicParsing="false" text="Save" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="homeRHS_help_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Help" underline="true" />
+                                          <TextArea fx:id="home_help_helpText_textArea" editable="false" prefHeight="200.0" prefWidth="200.0" text="Refer to gcmd help command for more detail." VBox.vgrow="SOMETIMES" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="homeRHS_about_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="About" underline="true" />
+                                          <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="SOMETIMES" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="monitor_pane_hbox" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" minHeight="0.0" minWidth="0.0" spacing="15.0" HBox.hgrow="NEVER">
+                           <children>
+                              <Label text="Monitor" />
+                              <Button fx:id="monitorLHS_overview_button" mnemonicParsing="false" onAction="#setVisibleMonitorOverviewPane" text="Overview" />
+                              <Button fx:id="monitorLHS_nodeView_button" mnemonicParsing="false" onAction="#setVisibleMonitorNodeViewPane" text="NodeView" />
+                              <Button fx:id="monitorLHS_taskView_button" mnemonicParsing="false" onAction="#setVisibleMonitorTaskViewPane" text="TaskView" />
+                              <Button fx:id="monitorLHS_mindView_button" mnemonicParsing="false" onAction="#setVisibleMonitorMindViewPane" text="MindView" />
+                              <Button fx:id="monitorLHS_nodeLog_button" mnemonicParsing="false" onAction="#setVisibleMonitorNodeLogPane" text="NodeLog" />
+                              <Button fx:id="monitorLHS_mindLog_button" mnemonicParsing="false" onAction="#setVisibleMonitorMindLogPane" text="MindLog" />
+                              <Button fx:id="monitorLHS_request_button" mnemonicParsing="false" onAction="#setVisibleMonitorRequestPane" text="Request" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <AnchorPane fx:id="monitorRHS_overview_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Overview" underline="true" />
+                                          <Label text="Performance index:" />
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="monitorRHS_overview_performanceIndex_label" prefHeight="26.0" textFill="#4cc0cd" HBox.hgrow="SOMETIMES">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" text=" %" textFill="#4cc0cd">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button fx:id="monitorRHS_overview_performanceIndex_button" mnemonicParsing="false" text="..." HBox.hgrow="NEVER" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_nodeView_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="NodeView" underline="true" />
+                                          <SplitPane dividerPositions="0.9" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="SOMETIMES">
+                                             <items>
+                                                <TableView minHeight="0.0" minWidth="0.0">
+                                                  <columns>
+                                                    <TableColumn prefWidth="75.0" text="NodeName" />
+                                                    <TableColumn prefWidth="75.0" text="Region" />
+                                                      <TableColumn prefWidth="75.0" text="Cluster" />
+                                                      <TableColumn prefWidth="75.0" text="Status" />
+                                                      <TableColumn prefWidth="75.0" text="Uptime" />
+                                                      <TableColumn prefWidth="75.0" text="Ping" />
+                                                      <TableColumn prefWidth="75.0" text="Detail" />
+                                                  </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <SplitPane dividerPositions="0.7" prefHeight="200.0" prefWidth="200.0">
+                                                   <items>
+                                                      <VBox minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <Label text="Detail:" />
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="NodeName: " />
+                                                                  <TextField editable="false" promptText="Not yet selected" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="26.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="Region: " />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="52.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="Cluster:" />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="78.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="Status:" />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="104.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="Uptime:" />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="130.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="Ping:" />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="156.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="ActiveTaskCount:" />
+                                                                  <TextField editable="false" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="182.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="CPULoad:" />
+                                                                  <TextField editable="false" HBox.hgrow="SOMETIMES" />
+                                                                  <Label prefHeight="26.0" prefWidth="63.0" text="Average: " />
+                                                                  <TextField editable="false" HBox.hgrow="SOMETIMES" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="262.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="GPULoad:" />
+                                                                  <TextField editable="false" HBox.hgrow="SOMETIMES" />
+                                                                  <Label prefHeight="26.0" prefWidth="63.0" text="Average: " />
+                                                                  <TextField editable="false" HBox.hgrow="SOMETIMES" />
+                                                               </children>
+                                                            </HBox>
+                                                            <TableView>
+                                                               <columns>
+                                                                  <TableColumn prefWidth="75.0" text="TaskName" />
+                                                                  <TableColumn prefWidth="75.0" text="Uptime" />
+                                                                  <TableColumn prefWidth="75.0" text="Cycle" />
+                                                                  <TableColumn prefWidth="75.0" text="Drop" />
+                                                               </columns>
+                                                               <columnResizePolicy>
+                                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                               </columnResizePolicy>
+                                                            </TableView>
+                                                            <HBox alignment="BOTTOM_RIGHT">
+                                                               <children>
+                                                                  <ChoiceBox prefWidth="150.0">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Select new task to add" />
+                                                                     </tooltip>
+                                                                  </ChoiceBox>
+                                                                  <Button mnemonicParsing="false" text="Add">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Add new task to this node" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="BOTTOM_RIGHT" layoutX="10.0" layoutY="288.0">
+                                                               <children>
+                                                                  <Button mnemonicParsing="false" text="Halt">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Add new task to this node" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                                  <Button layoutX="341.0" layoutY="10.0" mnemonicParsing="false" text="Reboot">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Add new task to this node" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                                  <Label prefHeight="26.0" text="Comm:" />
+                                                                  <TextField promptText="Comm Msg to em">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Notification message to be sent to the target machine." />
+                                                                     </tooltip>
+                                                                  </TextField>
+                                                                  <Button mnemonicParsing="false" text="Send">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Send notification message to the target machine." />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <Label text="General Statistic:" />
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="TotalNode:" />
+                                                                  <TextField editable="false" promptText="Not yet selected" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="OfflineNode:" />
+                                                                  <TextField editable="false" promptText="Not yet selected" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="TotalRegion:" />
+                                                                  <TextField editable="false" promptText="Not yet selected" HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="120.0" text="UptimeSession:" />
+                                                                  <TextField editable="false" promptText="Not yet selected" HBox.hgrow="ALWAYS">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Uptime this session since this boot." />
+                                                                     </tooltip>
+                                                                  </TextField>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </items>
+                                                </SplitPane>
+                                             </items>
+                                          </SplitPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_taskView_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="TaskView" underline="true" />
+                                          <SplitPane dividerPositions="0.8" orientation="VERTICAL" VBox.vgrow="SOMETIMES">
+                                             <items>
+                                                <VBox minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <TableView VBox.vgrow="SOMETIMES">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="TaskName" />
+                                                          <TableColumn prefWidth="75.0" text="Health" />
+                                                            <TableColumn prefWidth="75.0" text="WorkerCount" />
+                                                            <TableColumn prefWidth="75.0" text="WorkerList" />
+                                                            <TableColumn prefWidth="75.0" text="MinimumHealth" />
+                                                            <TableColumn prefWidth="75.0" text="Rebalance" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                      <HBox alignment="BOTTOM_RIGHT">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" text="Balance All">
+                                                               <tooltip>
+                                                                  <Tooltip text="Balance all tasks whose health are above minimum value." />
+                                                               </tooltip>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <Label text="WorkerList:" />
+                                                      <TableView VBox.vgrow="SOMETIMES">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="NodeName" />
+                                                          <TableColumn prefWidth="75.0" text="Ping" />
+                                                            <TableColumn prefWidth="75.0" text="Cycle" />
+                                                            <TableColumn prefWidth="75.0" text="Uptime" />
+                                                            <TableColumn prefWidth="75.0" text="Remove" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                      <HBox alignment="BOTTOM_RIGHT">
+                                                         <children>
+                                                            <ComboBox prefWidth="150.0">
+                                                               <tooltip>
+                                                                  <Tooltip text="Select new node to add as worker for this task." />
+                                                               </tooltip>
+                                                            </ComboBox>
+                                                            <Button mnemonicParsing="false" text="Add">
+                                                               <tooltip>
+                                                                  <Tooltip text="Add the selected node to this task." />
+                                                               </tooltip>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </items>
+                                          </SplitPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_mindView_pane" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="MindView" underline="true" />
+                                          <SplitPane fx:id="monitorRHS_mindView_splitPane" dividerPositions="0.0" VBox.vgrow="SOMETIMES">
+                                             <items>
+                                                <VBox fx:id="monitorRHS_mindView_viewSelect_vBox" disable="true" minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <VBox minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <Label text="View Select:" underline="true" />
+                                                            <HBox spacing="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="100.0" text="SensorFeed:" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_sensorFeed_toggleButton" mnemonicParsing="false" onAction="#mindViewSensorFeedToggle" text="SV">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Selected visualization by sensor data" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Button mnemonicParsing="false" text="...">
+                                                                     <tooltip>
+                                                                        <Tooltip text="More Settings" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox spacing="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="100.0" text="GlobalDist:" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_globalDist_toggleButton" mnemonicParsing="false" onAction="#mindViewGlobalDistToggle" text="LineChart">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Global Distribution view in graph format" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Button mnemonicParsing="false" text="...">
+                                                                     <tooltip>
+                                                                        <Tooltip text="More Settings" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox spacing="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="100.0" text="DecisionTree:" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_decisionTree_toggleButton" mnemonicParsing="false" onAction="#mindViewDecisionTreeToggle" text="2DG">
+                                                                     <tooltip>
+                                                                        <Tooltip text="2DGraph, Decision Tree with highlighted executed path" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_decisionTreeFSV_toggleButton" mnemonicParsing="false" onAction="#mindViewDecisionTreeToggle" text="FSV">
+                                                                     <tooltip>
+                                                                        <Tooltip text="2DG, full or selected branch visualization by sensor data" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_decisionTreeS2DG_toggleButton" mnemonicParsing="false" onAction="#mindViewDecisionTreeToggle" text="S-2DG">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Selected branch 2D graph visualization" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Button mnemonicParsing="false" text="...">
+                                                                     <tooltip>
+                                                                        <Tooltip text="More Settings" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox spacing="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="100.0" text="Prediction:" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_prediction_toggleButton" disable="true" mnemonicParsing="false" onAction="#mindViewPredictionToggle" text="2DG TSP">
+                                                                     <tooltip>
+                                                                        <Tooltip text="2DGraph with TimeSelectPanel" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_predictionFSV_toggleButton" disable="true" mnemonicParsing="false" onAction="#mindViewPredictionToggle" text="FSV">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Full or Selected visualization by sensor data" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                                  <Button disable="true" mnemonicParsing="false" text="...">
+                                                                     <tooltip>
+                                                                        <Tooltip text="More Settings" />
+                                                                     </tooltip>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <VBox>
+                                                               <children>
+                                                                  <HBox spacing="10.0">
+                                                                     <children>
+                                                                        <Label prefHeight="26.0" prefWidth="100.0" text="MindStructure:" />
+                                                                        <Button disable="true" mnemonicParsing="false" text="...">
+                                                                           <tooltip>
+                                                                              <Tooltip text="More Settings" />
+                                                                           </tooltip>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <HBox spacing="10.0">
+                                                                     <children>
+                                                                        <Label prefHeight="26.0" prefWidth="62.0" text="Dynamic:" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructureFSync_toggleButton" disable="true" mnemonicParsing="false" text="3DG F-Sync">
+                                                                           <tooltip>
+                                                                              <Tooltip text="3DGraph Full-Sync" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructureFSyncSV_toggleButton" disable="true" layoutX="307.0" layoutY="10.0" mnemonicParsing="false" text="SV">
+                                                                           <tooltip>
+                                                                              <Tooltip text="Selected Branch Visualization by sensor data" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructurePSync_toggleButton" disable="true" mnemonicParsing="false" text="3DG P-Sync">
+                                                                           <tooltip>
+                                                                              <Tooltip text="3DGraph Partial-Sync" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructurePSyncSV_toggleButton" disable="true" mnemonicParsing="false" text="SV">
+                                                                           <tooltip>
+                                                                              <Tooltip text="Selected Branch Visualization by sensor data" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <HBox layoutX="10.0" layoutY="36.0" spacing="10.0">
+                                                                     <children>
+                                                                        <Label prefHeight="26.0" prefWidth="62.0" text="Static:" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructureFSS_toggleButton" disable="true" mnemonicParsing="false" text="3DG F-SS">
+                                                                           <tooltip>
+                                                                              <Tooltip text="3DGraph Full-Sync" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructureFSSSV_toggleButton" disable="true" layoutX="307.0" layoutY="10.0" mnemonicParsing="false" text="SV">
+                                                                           <tooltip>
+                                                                              <Tooltip text="Selected Branch Visualization by sensor data" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructurePSS_toggleButton" disable="true" mnemonicParsing="false" text="3DG P-SS">
+                                                                           <tooltip>
+                                                                              <Tooltip text="3DGraph Partial-Sync" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                        <Separator orientation="VERTICAL" />
+                                                                        <ToggleButton fx:id="monitorRHS_mindView_mindStructurePSSSV_toggleButton" disable="true" mnemonicParsing="false" text="SV">
+                                                                           <tooltip>
+                                                                              <Tooltip text="Selected Branch Visualization by sensor data" />
+                                                                           </tooltip>
+                                                                        </ToggleButton>
+                                                                     </children>
+                                                                  </HBox>
+                                                               </children>
+                                                            </VBox>
+                                                            <Label text="NOTE: Select and Validate Data Source First!" textFill="#0080ff" />
+                                                         </children>
+                                                      </VBox>
+                                                      <Separator />
+                                                      <VBox minHeight="0.0" minWidth="0.0">
+                                                         <children>
+                                                            <Label text="Timeline:" underline="true" />
+                                                            <Slider fx:id="monitorRHS_mindView_timeline_slider" majorTickUnit="10000.0" minorTickCount="5000" onMouseReleased="#mindViewMindTimeSelectSlider" showTickMarks="true">
+                                                               <tooltip>
+                                                                  <Tooltip text="Scrollbar of current rid" />
+                                                               </tooltip></Slider>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" text="By RID:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineSetByRid_textField" onAction="#mindViewTimelineSetByRidTextField" promptText="Valid Rid in range" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="A valid Rid to jump to copied from GET" />
+                                                                     </tooltip></TextField>
+                                                                  <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" text="By TimePoint:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineSetByTimePoint_textField" layoutX="59.0" layoutY="10.0" onAction="#mindViewTimelineSetByTimePointTextField" promptText="Valid timepoint in range" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="A valid timepoint to jump to copied from GET" />
+                                                                     </tooltip></TextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineGetRid_textField" editable="false" prefWidth="100.0" promptText="RID" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Snapshot Rid" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineGetTimePoint_textField" editable="false" layoutX="67.0" layoutY="10.0" promptText="TimePoint" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Snapshot timepoint" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineGetTime_textField" editable="false" layoutX="238.0" layoutY="10.0" promptText="DD:MM:YY:millisec" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Snapshot time" />
+                                                                     </tooltip></TextField>
+                                                                  <Button fx:id="monitorRHS_mindView_timelineGet_button" mnemonicParsing="false" onAction="#mindViewTimelineGetButton" text="Get" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Get current running timeline snapshot" />
+                                                                     </tooltip></Button>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="64.0">
+                                                               <children>
+                                                                  <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" text="Speed (MilliSec per Sec):" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelinePlaySpeed_textField" alignment="BOTTOM_RIGHT" layoutX="59.0" layoutY="10.0" onAction="#mindViewTimelineTimingSet" promptText="Play Speed, 1000 default" text="1000" HBox.hgrow="SOMETIMES">
+                                                                     <tooltip>
+                                                                        <Tooltip text="How many millisecond equals to actual 1 second, default is 1000millisec, which is 1 sec, the real time." />
+                                                                     </tooltip>
+                                                                  </TextField>
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_timelinePlay_toggleButton" mnemonicParsing="false" onAction="#mindViewPlayButtonToggle" text="Play">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Toggle to start playing" />
+                                                                     </tooltip>
+                                                                  </ToggleButton>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" text="Current:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineCurrentRid_textField" editable="false" prefWidth="100.0" promptText="RID">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Current Playing Rid" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineCurrentTimePoint_textField" editable="false" promptText="TimePoint">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Current Playing timepoint" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineCurrentTime_textField" editable="false" promptText="DD:MM:YY:millisec">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Current Playing time" />
+                                                                     </tooltip></TextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" text="Min:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMinRid_textField" editable="false" prefWidth="100.0" promptText="RID">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Starting, minimum Rid" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMinTimePoint_textField" editable="false" promptText="TimePoint">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Starting, minimum timepoint" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMinTime_textField" editable="false" promptText="DD:MM:YY:millisec">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Starting, minimum time" />
+                                                                     </tooltip></TextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox fx:id="monitorRHS_mindView_timelineMax_HBox" layoutX="10.0" layoutY="142.0">
+                                                               <children>
+                                                                  <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" text="Max:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMaxRid_textField" editable="false" prefWidth="100.0" promptText="RID">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Ending, maximum rid" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMaxTimePoint_textField" editable="false" promptText="TimePoint">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Ending, maximum timepoint" />
+                                                                     </tooltip></TextField>
+                                                                  <TextField fx:id="monitorRHS_mindView_timelineMaxTime_textField" editable="false" promptText="DD:MM:YY:millisec">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Ending, maximum time" />
+                                                                     </tooltip></TextField>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <Label text="Format is: [RID] [TimePoint] [DD:MM:YY hh:mm:ss]" textFill="#0080ff" wrapText="true" />
+                                                      <Label layoutX="10.0" layoutY="425.0" text="For every text field to be set, you must click enter manually!" textFill="#0080ff" wrapText="true" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox fx:id="monitorRHS_mindView_InputDataSource_vBox" minHeight="0.0" minWidth="0.0" spacing="10.0">
+                                                   <children>
+                                                      <Label text="Input Data Source:" underline="true" />
+                                                      <Label text="Direct fetch from DB:" />
+                                                      <HBox spacing="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" prefWidth="70.0" text="StartRid:" />
+                                                            <TextField fx:id="monitorRHS_mindView_directFetchStartRid_textField" prefWidth="80.0" promptText="GCAMain" HBox.hgrow="SOMETIMES">
+                                                               <tooltip>
+                                                                  <Tooltip text="Starting GCAMain RID" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                            <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="70.0" text="EndRid:" />
+                                                            <TextField fx:id="monitorRHS_mindView_directFetchEndRid_textField" layoutX="140.0" layoutY="10.0" prefWidth="80.0" promptText="GCAMain" HBox.hgrow="SOMETIMES">
+                                                               <tooltip>
+                                                                  <Tooltip text="Ending GCAMain RID" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                            <ToggleButton fx:id="monitorRHS_mindView_directFetchValidate_toggleButton" mnemonicParsing="false" onAction="#mindViewMindDataSourceValidateButton" text="Validate">
+                                                               <tooltip>
+                                                                  <Tooltip text="Validate RId, make sure DB is connected." />
+                                                               </tooltip>
+                                                            </ToggleButton>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label text="Latest data (real time):" />
+                                                      <HBox spacing="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" text="StartingRid:" />
+                                                            <TextField fx:id="monitorRHS_mindView_latestDataFetchStartRid_textField" promptText="GCAMain" HBox.hgrow="SOMETIMES">
+                                                               <tooltip>
+                                                                  <Tooltip text="Starting Rid of the real time data, set at the moment it is validated." />
+                                                               </tooltip>
+                                                            </TextField>
+                                                            <ToggleButton fx:id="monitorRHS_mindView_latestDataFetchValidate_toggleButton" mnemonicParsing="false" onAction="#mindViewMindDataSourceValidateButton" text="Validate">
+                                                               <tooltip>
+                                                                  <Tooltip text="Use latest data (real time), disable all other type of view." />
+                                                               </tooltip>
+                                                            </ToggleButton>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label text="ONLY FILL IF USING DIRECT FETCH OR LATEST DATA:" textFill="#26dd66" />
+                                                      <Label text="DBCredentials:" />
+                                                      <FlowPane hgap="10.0">
+                                                         <children>
+                                                            <HBox>
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="80.0" text="DBPath:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_DBPath_textField" prefWidth="180.0" promptText="Required Unless Default" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="10.0" layoutY="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="80.0" text="Username:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_username_textField" prefWidth="180.0" promptText="Required Unless Default" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox layoutX="318.0" layoutY="36.0">
+                                                               <children>
+                                                                  <Label prefHeight="26.0" prefWidth="80.0" text="Password:" />
+                                                                  <TextField fx:id="monitorRHS_mindView_password_textField" prefWidth="180.0" promptText="Required Unless Default" />
+                                                                  <ToggleButton fx:id="monitorRHS_mindView_DBCredentialdefault_toggleButton" mnemonicParsing="false" onAction="#mindViewDBUseDefaultCredential" text="Default">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Use default data from the default console config file" />
+                                                                     </tooltip></ToggleButton>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </FlowPane>
+                                                      <Separator />
+                                                      <Label text="Extracted viewable file:" />
+                                                      <HBox spacing="10.0">
+                                                         <children>
+                                                            <TextField fx:id="monitorRHS_mindView_fileViewPath_textField" promptText="FilePath" HBox.hgrow="SOMETIMES">
+                                                               <tooltip>
+                                                                  <Tooltip text="FilePath to the viewable file" />
+                                                               </tooltip>
+                                                            </TextField>
+                                                            <Button fx:id="monitorRHS_mindView_fileViewBrowse_button" mnemonicParsing="false" onAction="#mindViewMindDataSourceBrowseButton" text="Browse" />
+                                                            <ToggleButton fx:id="monitorRHS_mindView_fileViewValidate_toggleButton" mnemonicParsing="false" onAction="#mindViewMindDataSourceValidateButton" text="Validate">
+                                                               <tooltip>
+                                                                  <Tooltip text="Use extracted offline analysis file" />
+                                                               </tooltip>
+                                                            </ToggleButton>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox spacing="10.0">
+                                                         <children>
+                                                            <Label prefHeight="26.0" text="Source Validated: " />
+                                                            <TextField fx:id="monitorRHS_mindView_sourceValidated_textField" editable="false" promptText="State" text="False" HBox.hgrow="SOMETIMES" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <Label text="NOTE: Can only select 1 type of data source! Cannot change it afterward (reboot required)! Data source must be secured then the view selection panel be enabled." textFill="#0080ff" wrapText="true" />
+                                                      <Label layoutX="10.0" layoutY="382.0" text="The Viewable file should be put in the folder: " textFill="#0080ff" wrapText="true" />
+                                                      <Label layoutX="10.0" layoutY="427.0" text="StartRid must start from 1 (&gt;0) as 0 is reserved placeholder." textFill="#0080ff" wrapText="true" />
+                                                   </children>
+                                                </VBox>
+                                             </items>
+                                          </SplitPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_nodeLog_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="NodeLog" underline="true" />
+                                          <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="SOMETIMES" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_mindLog_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="MindLog" underline="true" />
+                                          <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="SOMETIMES" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="monitorRHS_request_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <VBox minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Request" underline="true" />
+                                          <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                                             <items>
+                                                <VBox minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <Label minHeight="0.0" minWidth="0.0" text="Mind internal response:" />
+                                                      <TableView minHeight="0.0" minWidth="0.0" VBox.vgrow="SOMETIMES">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="Sender credential" />
+                                                          <TableColumn prefWidth="75.0" text="Message" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </VBox>
+                                                <VBox minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <Label minHeight="0.0" minWidth="0.0" text="Add Node:" />
+                                                      <TableView VBox.vgrow="SOMETIMES">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="Type" />
+                                                          <TableColumn prefWidth="75.0" text="Region" />
+                                                            <TableColumn prefWidth="75.0" text="Reason" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </VBox>
+                                             </items>
+                                          </SplitPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+          <AnchorPane fx:id="cmd_pane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="265.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="43.0" prefWidth="128.0">
+                           <children>
+                              <ComboBox fx:id="cmdTop_choiceBox" prefWidth="150.0">
+                                 <tooltip>
+                                    <Tooltip text="Select STN node" />
+                                 </tooltip>
+                              </ComboBox>
+                              <Button fx:id="cmdTop_add_button" mnemonicParsing="false" text="Add" HBox.hgrow="SOMETIMES">
+                                 <tooltip>
+                                    <Tooltip text="Add new STN node" />
+                                 </tooltip>
+                              </Button>
+                              <Button fx:id="cmdTop_config_button" mnemonicParsing="false" text="Config" />
+                           </children>
+                        </HBox>
+                        <TabPane prefHeight="566.0" prefWidth="156.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                          <tabs>
+                            <Tab fx:id="cmdBtm_stn_tab_0" text="STN">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="ASync Output:" />
+                                          <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="SOMETIMES">
+                                             <items>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea fx:id="cmdBtm_stn_resultOutput_textArea_0" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea fx:id="cmdBtm_stn_commandOutput_textArea_0" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </items>
+                                          </SplitPane>
+                                          <HBox prefHeight="0.0" prefWidth="634.0" VBox.vgrow="NEVER">
+                                             <children>
+                                                <Label fx:id="cmdBtm_stn_input_consoleInitial_label_0" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="cmdBtm_stn_input_textField_0" HBox.hgrow="SOMETIMES" />
+                                                <Button fx:id="cmdBtm_stn_inputSend_button_0" mnemonicParsing="false" onAction="#cmdSendButton" text="Send" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                            </Tab>
+                              <Tab text="Test">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="ASync Output:" />
+                                          <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="SOMETIMES">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                          <HBox prefHeight="0.0" prefWidth="634.0" VBox.vgrow="NEVER">
+                                             <children>
+                                                <TextField HBox.hgrow="SOMETIMES" />
+                                                <Button mnemonicParsing="false" text="Send" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label HBox.hgrow="SOMETIMES" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
