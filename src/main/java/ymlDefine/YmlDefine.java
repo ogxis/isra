@@ -176,4 +176,21 @@ public abstract class YmlDefine {
 		public long start;
 		public long end;
 	}
+
+	/**
+	 * External hardware configuration path, to setup the system external interfaces.
+	 */
+	public class ExternalIOConfig {
+		public String visualInURL;
+		public String audioInURL;
+		public String audioOutPath;
+		public String motor1InURL;
+		public String motor2InURL;
+		public String motor3InURL;
+		public String motor4InURL;
+		public String motor1OutPath;
+		public String motor2OutPath;
+		public String motor3OutPath;
+		public String motor4OutPath;
+	}
 }

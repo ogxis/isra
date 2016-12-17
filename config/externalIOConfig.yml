@@ -1,0 +1,13 @@
+!ymlDefine.YmlDefine$ExternalIOConfig
+#Enter external interface devices path and URL. Path is physical location, URL is network location eg Streams.
+visualInURL: ''
+audioInURL: ''
+audioOutPath: ''
+motor1InURL: ''
+motor1OutPath: ''
+motor2InURL: ''
+motor2OutPath: ''
+motor3InURL: ''
+motor3OutPath: ''
+motor4InURL: ''
+motor4OutPath: ''
