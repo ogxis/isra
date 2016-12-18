@@ -77,6 +77,7 @@ public class StartupSoft {
 	 * @param args If no argument, will use default file 'config/startupSoftConfig.yml', else will use user provided file.
 	 */
 	public static int startService(String[] args) {
+		System.out.println("ISRA Node Manager");
 		halt = new ArrayList<AtomicBoolean>();
 		haltAccepted = new ArrayList<AtomicBoolean>();
 		mainHalt = false;
