@@ -1,8 +1,16 @@
 package actionExecutor;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
+
+import org.apache.commons.io.FileUtils;
+
+import com.esotericsoftware.yamlbeans.YamlException;
+import com.esotericsoftware.yamlbeans.YamlReader;
 
 import isradatabase.Direction;
 import isradatabase.Graph;
@@ -17,6 +25,7 @@ import stm.DBCN;
 import stm.STMClient;
 import stm.STMServer;
 import utilities.Util;
+import ymlDefine.YmlDefine.ExternalIOConfig;
 
 /**
  * Holds all the function for output to external physical devices.
@@ -24,14 +33,33 @@ import utilities.Util;
  */
 public abstract class ActionScheduler {
 	public static String rpiUrl;
+	//TODO: Temporary record the desired output path.
+	private static ExternalIOConfig externalIOConfig;
+	//TODO: Temporary variable, to make output to use direct path instead of native forwarding to RPI.
+	public static boolean noRpi = false;
 
 	/*
 	 * Must call this for the 'execute' function to work.
 	 */
 	public static void init() {
 		Graph txGraph = StartupSoft.factory.getTx();
-		ActionScheduler.rpiUrl = txGraph.getFirstVertexOfClass(DBCN.V.extInterface.hw.controller.rpi.cn).getProperty(LP.data);
+		try {
+			ActionScheduler.rpiUrl = txGraph.getFirstVertexOfClass(DBCN.V.extInterface.hw.controller.rpi.cn).getProperty(LP.data);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			noRpi = true;
+		}
 		txGraph.shutdown();
+
+		//TODO: Should use relative path from the DB instead of hardcoding it.
+		externalIOConfig = new ExternalIOConfig();
+		try {
+			YamlReader hardwareConfigReader = new YamlReader(new FileReader("config/externalIOConfig.yml"));
+			externalIOConfig = hardwareConfigReader.read(ExternalIOConfig.class);
+		} catch (YamlException | FileNotFoundException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	/**
@@ -103,18 +131,48 @@ public abstract class ActionScheduler {
 					, DBCN.V.LTM.rawData.POFeedback.dev.speaker1.cn);
 		}
 
-		System.out.println("Action Scheduler: waiting receiver to accept socket connection.");
+		if (noRpi) {
+			System.out.println("Action Scheduler: waiting receiver to accept socket connection.");
 
-		//Send data to receiver.
-		Socket toDeviceSocket;
-		try {
-			//No need to close stream, close only socket, close socket on the final receiver operation. We are not final receiver here so
-			//no close socket.
-			toDeviceSocket = new Socket(rpiUrl, 45000);
-			DataOutputStream toDevStream = new DataOutputStream(toDeviceSocket.getOutputStream());
-			toDevStream.writeUTF(Util.objectToYml(POOutputToDev));
-		} catch (IOException e) {
-			StartupSoft.logger.log(new Credential(), LVL.ERROR, CLA.EXCEPTION, "Action scheduler failed to connect socket.", e);
+			//Send data to receiver.
+			Socket toDeviceSocket;
+			try {
+				//No need to close stream, close only socket, close socket on the final receiver operation. We are not final receiver here so
+				//no close socket.
+				toDeviceSocket = new Socket(rpiUrl, 45000);
+				DataOutputStream toDevStream = new DataOutputStream(toDeviceSocket.getOutputStream());
+				toDevStream.writeUTF(Util.objectToYml(POOutputToDev));
+			} catch (IOException e) {
+				StartupSoft.logger.log(new Credential(), LVL.ERROR, CLA.EXCEPTION, "Action scheduler failed to connect socket.", e);
+			}
+		}
+
+		else {
+			//Write outputs to file, so user can grab them and forward to their own hardware on their own. Do nothing if path not exist.
+			try {
+				if (!externalIOConfig.motor1OutPath.equals("")) {
+					File file = new File(externalIOConfig.motor1OutPath);
+					FileUtils.writeStringToFile(file, Double.toString(POOutputToDev.motor1));
+				}
+				if (!externalIOConfig.motor2OutPath.equals("")) {
+					File file = new File(externalIOConfig.motor2OutPath);
+					FileUtils.writeStringToFile(file, Double.toString(POOutputToDev.motor2));
+				}
+				if (!externalIOConfig.motor3OutPath.equals("")) {
+					File file = new File(externalIOConfig.motor3OutPath);
+					FileUtils.writeStringToFile(file, Double.toString(POOutputToDev.motor3));
+				}
+				if (!externalIOConfig.motor4OutPath.equals("")) {
+					File file = new File(externalIOConfig.motor4OutPath);
+					FileUtils.writeStringToFile(file, Double.toString(POOutputToDev.motor4));
+				}
+				if (!externalIOConfig.audioOutPath.equals("")) {
+					File file = new File(externalIOConfig.audioOutPath);
+					FileUtils.writeByteArrayToFile(file, POOutputToDev.speaker1);
+				}
+			} catch (IOException e) {
+				throw new IllegalStateException(e);
+			}
 		}
 
 		StartupSoft.logger.log(new Credential(), LVL.INFO, CLA.NORM, "Action Scheduler: Sent motorData: " + POOutputToDev.motor1 + " "

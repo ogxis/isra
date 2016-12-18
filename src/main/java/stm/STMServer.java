@@ -1,6 +1,9 @@
 package stm;
 
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -12,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,6 +39,7 @@ import logger.Logger.LVL;
 import pointerchange.POInterchange;
 import startup.StartupSoft;
 import utilities.Util;
+import ymlDefine.YmlDefine.ExternalIOConfig;
 import ymlDefine.YmlDefine.TaskDetail;
 import ymlDefine.YmlDefine.WorkerConfig;
 
@@ -583,6 +588,21 @@ public class STMServer implements Runnable {
 						@Override
 						public void run() {
 							while (!isHalt()) {
+								//TODO: NOTE Ignore rpi for now, uses direct path instead for simpler access.
+								boolean rpiExist = false;
+
+								//TODO: This is a shorthand version, should create a DB class to represent this, to make it functional
+								//for other STMServer who doesn't have the local ext path files.
+								//It is bad to use absolute path, should carry this forward from console via its initial args,
+								//For both ConsoleConfig and from there get externalHardwareConfig's path.
+								ExternalIOConfig hardwareConfig = new ExternalIOConfig();
+								try {
+									YamlReader hardwareConfigReader = new YamlReader(new FileReader("config/externalIOConfig.yml"));
+									hardwareConfig = hardwareConfigReader.read(ExternalIOConfig.class);
+								} catch (YamlException | FileNotFoundException e) {
+									throw new IllegalStateException(e);
+								}
+
 								if (mockDevice) {
 									//Mocked sleep time latency, 1000ms / 10ms = 100frames. For real application synchronization purposes.
 									Util.sleep(10l);
@@ -605,7 +625,7 @@ public class STMServer implements Runnable {
 									POFeedbackData.motor4 = 50d;
 									POFeedbackData.speaker1 = new byte[0];
 								}
-								else {
+								else if (rpiExist) {
 									//Fetch PO feedback data from the devices directly and post them to GCA.
 									//Instruction on adding output (feedback) device, add it here at POFeedback, then go to STMServer raw data fetch from device section, add the
 									//way how you get that data into the DB system, there are example there. Then add it to ActionScheduler to tell him about this new device,
@@ -629,6 +649,44 @@ public class STMServer implements Runnable {
 										POFeedbackData = reader.read(POInterchange.class);
 									} catch (YamlException e) {
 										throw new IllegalStateException("RPI Device Input decode error.", e);
+									}
+								}
+								//Note: this is the latest one, uses direct path to get data.
+								//TODO: Speaker feedback not yet implemented.
+								else {
+									Scanner scan;
+									try {
+										//Get data from file, if not available, -1d to mark it as not available.
+										if (!hardwareConfig.motor1InURL.equals("")) {
+											scan = new Scanner(new File(hardwareConfig.motor1InURL));
+											POFeedbackData.motor1 = scan.nextDouble();
+											scan.close();
+										}
+										else
+											POFeedbackData.motor1 = -1d;
+										if (!hardwareConfig.motor2InURL.equals("")) {
+											scan = new Scanner(new File(hardwareConfig.motor2InURL));
+											POFeedbackData.motor2 = scan.nextDouble();
+											scan.close();
+										}
+										else
+											POFeedbackData.motor2 = -1d;
+										if (!hardwareConfig.motor3InURL.equals("")) {
+											scan = new Scanner(new File(hardwareConfig.motor3InURL));
+											POFeedbackData.motor3 = scan.nextDouble();
+											scan.close();
+										}
+										else
+											POFeedbackData.motor3 = -1d;
+										if (!hardwareConfig.motor4InURL.equals("")) {
+											scan = new Scanner(new File(hardwareConfig.motor4InURL));
+											POFeedbackData.motor4 = scan.nextDouble();
+											scan.close();
+										}
+										else
+											POFeedbackData.motor4 = -1d;
+									} catch (FileNotFoundException e) {
+										e.printStackTrace();
 									}
 								}
 

@@ -1,5 +1,6 @@
 !ymlDefine.YmlDefine$ExternalIOConfig
 #Enter external interface devices path and URL. Path is physical location, URL is network location eg Streams.
+#'' empty string means unused.
 visualInURL: ''
 audioInURL: ''
 audioOutPath: ''
