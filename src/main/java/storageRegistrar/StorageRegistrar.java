@@ -134,6 +134,8 @@ public class StorageRegistrar {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("ISRA Worker Storage Registrar");
+
 		long startTime = System.currentTimeMillis();
 
 		//Load the config file then load DBCredential data file.
@@ -163,6 +165,7 @@ public class StorageRegistrar {
 		}
 
 		//Try to connect to database.
+		System.out.println("Connecting to DB Server...");
 		OServerAdmin serverAdmin = null;
 		try {
 			boolean connectSuccess = false;
@@ -214,10 +217,11 @@ public class StorageRegistrar {
 				} catch (IOException e) {
 					throw new IllegalStateException("Failed to open server socket on port:" + config.port + "; " + e);
 				}
-				System.out.println("Worker Storage Registrar For " + config.version);
+
 				System.out.println("Current Highest Storage Id:" + config.currentStorageCount);
 				System.out.println("HostName:" + config.hostName + " ; Port:" + config.port);
 				System.out.println("BackupAfterMilli:" + config.backUpAfterMilli);
+				System.out.println("Version: " + config.version);
 				System.out.println("Ready");
 
 				long nextBackupTime = System.currentTimeMillis() + config.backUpAfterMilli;

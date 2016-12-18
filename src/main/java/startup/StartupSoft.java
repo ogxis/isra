@@ -77,6 +77,7 @@ public class StartupSoft {
 	 * @param args If no argument, will use default file 'config/startupSoftConfig.yml', else will use user provided file.
 	 */
 	public static int startService(String[] args) {
+		System.out.println("ISRA Node Manager");
 		halt = new ArrayList<AtomicBoolean>();
 		haltAccepted = new ArrayList<AtomicBoolean>();
 		mainHalt = false;
@@ -125,6 +126,7 @@ public class StartupSoft {
 
 		//Connect to any server specified in config file.
 		//http://stackoverflow.com/questions/35053001/orientdb-cant-get-graph-instance-using-remote-from-java
+		System.out.println("Connecting to DB Server...");
 		OServerAdmin serverAdmin = null;
 		try {
 			boolean connectSuccess = false;

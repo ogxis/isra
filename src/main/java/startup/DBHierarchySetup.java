@@ -22,6 +22,7 @@ import stm.DBCN.V;
  */
 public class DBHierarchySetup {
 	public static void main(String[] args) {
+		System.out.println("ISRA Database Hierarchy Setup");
 		//Create testing database start distributed server.
 		OServerAdmin serverAdmin = null;
 		Graph txGraph = null;
@@ -41,6 +42,7 @@ public class DBHierarchySetup {
 		int storageCountFrom = 0;
 		int storageCountTo = 0;
 
+		System.out.println("Connecting to DB Server...");
 		try {
 			//serverAdmin = new OServerAdmin("remote:localhost/dumb").connect("root", "A1D37108966FB737C9B79A8A20B8545FD5CED33665037DDFDD9133B2FE4D1966");
 			serverAdmin = new OServerAdmin(args[0] + "/" + args[1]).connect(args[2], args[3]);
