@@ -152,6 +152,8 @@ public class StorageRegistrar {
 				config = reader.read(StorageRegistrarConfig.class);
 				DBLoginCredential = Util.loadDBCredentialFromFile(config.DBCredentialConfigFilePath);
 			}
+			else if (args.length == 0)
+				throw new IllegalArgumentException("Usage: programName CustomConfigFile");
 		}
 		catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("Given config file not found:" + args[0]);

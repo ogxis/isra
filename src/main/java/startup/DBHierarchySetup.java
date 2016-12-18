@@ -30,7 +30,7 @@ public class DBHierarchySetup {
 
 		if (args.length != 4) {
 			throw new IllegalArgumentException("Usage: progName protocolAndAddr databaseNameYouWanted username serverPassword"
-					+ " Example: progName remote:localhost databaseName root ASHDHSFHSHHDHHSD1231412; Note that we will auto append a '/' between"
+					+ " Example: progName remote:localhost databaseName root ASHDHSFHSHHDHHSD1231412; Note that it will auto append a '/' between"
 					+ "args[0] and args[1] to form remote:localhost/databaseName which is the format the DB wanted.");
 		}
 

@@ -94,7 +94,7 @@ public class StartupSoft {
 		try {
 			if (args.length > 1) {
 				throw new IllegalArgumentException("Too many argument!\n"
-						+ "Usage: progName  ||  programName CustomConfigFile\nFirst will use default file 'config/startupSoftConfig.yml'");
+						+ "Usage: progName | programName [CustomConfigFile]\nFirst will use default file 'config/startupSoftConfig.yml'");
 			}
 			else if (args.length == 1) {
 				reader = new YamlReader(new FileReader(args[0]));
