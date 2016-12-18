@@ -145,6 +145,8 @@ public class Console implements Runnable {
 
 	//Make it runnable to allow it to be called by external wrapper class to extend it, eg GUI console.
 	public void run() {
+		System.out.println("ISRA Async Console");
+
 		//A list of goodbye messages, will randomly pick 1 when user exits.
 		ArrayList<String> goodByeMsg = new ArrayList<String>();
 		goodByeMsg.add("再会。");
@@ -179,6 +181,7 @@ public class Console implements Runnable {
 
 		//Connect to any server specified in config file.
 		//http://stackoverflow.com/questions/35053001/orientdb-cant-get-graph-instance-using-remote-from-java
+		System.out.println("Connecting to DB Server...");
 		OServerAdmin serverAdmin = null;
 		try {
 			boolean connectSuccess = false;

@@ -125,6 +125,7 @@ public class StartupSoft {
 
 		//Connect to any server specified in config file.
 		//http://stackoverflow.com/questions/35053001/orientdb-cant-get-graph-instance-using-remote-from-java
+		System.out.println("Connecting to DB Server...");
 		OServerAdmin serverAdmin = null;
 		try {
 			boolean connectSuccess = false;
@@ -677,9 +678,12 @@ public class StartupSoft {
 	}
 
 	public static void main(String [] args) {
+		System.out.println("ISRA Node Manager");
 		try {
+			String logFileName = "log/startupSoft/" + System.currentTimeMillis();
+			System.out.println("All output will be redirected to file: " + logFileName);
 			//Set both the stdout and stderr stream to file.
-			PrintStream outputStream = new PrintStream(new FileOutputStream("log/startupSoft/" + System.currentTimeMillis()));
+			PrintStream outputStream = new PrintStream(new FileOutputStream(logFileName));
 			System.setOut(outputStream);
 			System.setErr(outputStream);
 		} catch (FileNotFoundException e1) {

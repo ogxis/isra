@@ -30,6 +30,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		System.out.println("ISRA Async GUI Console");
 		try {
 			//Need a loader to get the controller instance in order to access all those GUI elements. FXML element only be declared
 			//within the controller class, define elsewhere it simply will not be initialized.

@@ -1124,6 +1124,7 @@ public class MainController {
 
 		//Try to login the database to see if the provided credentials are valid.
 		//Connect to the DB specified by the user.
+		System.out.println("Connecting to DB Server...");
 		Graph txGraph = null;
 		OServerAdmin serverAdmin = null;
 		boolean dbConnectSuccess = false;
