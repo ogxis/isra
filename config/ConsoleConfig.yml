@@ -1,5 +1,6 @@
 !ymlDefine.YmlDefine$ConsoleConfig
-DBCredentialConfigFilePath: config/DBLoginCredential.yml
+DBCredentialConfigFilePath: 'config/DBLoginCredential.yml'
+extHardwareConfigFilePath: 'config/externalIOConfig.yml'
 WMRequestListenerPort: 9988
 defaultTargetNodeId: testNode001
 opencvJarPath: ''

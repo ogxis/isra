@@ -3,6 +3,7 @@
 visualInURL: ''
 audioInURL: ''
 audioOutPath: ''
+rpiURL: ''
 motor1InURL: ''
 motor1OutPath: ''
 motor2InURL: ''

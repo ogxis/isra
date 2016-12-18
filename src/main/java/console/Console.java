@@ -30,6 +30,7 @@ import utilities.Util;
 import wm.WMTASK;
 import ymlDefine.YmlDefine.ConsoleConfig;
 import ymlDefine.YmlDefine.DBCredentialConfig;
+import ymlDefine.YmlDefine.ExternalIOConfig;
 import ymlDefine.YmlDefine.MANAGEMENT_COMMAND_DEFINE;
 import ymlDefine.YmlDefine.ManagementCommand;
 import ymlDefine.YmlDefine.WorkerConfig;
@@ -953,6 +954,34 @@ public class Console implements Runnable {
 						catch (NumberFormatException e) {
 							outputTo("Argument 1 (totalHistoryToBeDisplayed):" + tokens.get(1) + " is not a number OR overflown int.");
 							commandErr = true;
+							continue;
+						}
+					}
+
+					else if (command.equals(MANAGEMENT_COMMAND_DEFINE.updateExtHardwarePath.toLowerCase()) || command.equals("uehp") ) {
+						try {
+							ExternalIOConfig hardwareConfig = new ExternalIOConfig();
+							YamlReader hardwareConfigReader = new YamlReader(new FileReader(config.extHardwareConfigFilePath));
+							hardwareConfig = hardwareConfigReader.read(ExternalIOConfig.class);
+
+							txGraph.begin();
+							//Replace all previous path with new path.
+							Util.removeAllVertexFromClass(DBCN.V.extInterface.hw.camera.cam1.cn, txGraph);
+							Util.removeAllVertexFromClass(DBCN.V.extInterface.hw.mic.mic1.cn, txGraph);
+
+							Vertex V_extInterface_hw_camera_cam1 = txGraph.addVertex(DBCN.V.extInterface.hw.camera.cam1.cn, DBCN.V.extInterface.hw.camera.cam1.cn);
+							V_extInterface_hw_camera_cam1.setProperty(LP.data, hardwareConfig.visualInURL);
+
+							Vertex V_extInterface_hw_mic_mic1 = txGraph.addVertex(DBCN.V.extInterface.hw.mic.mic1.cn, DBCN.V.extInterface.hw.mic.mic1.cn);
+							V_extInterface_hw_mic_mic1.setProperty(LP.data, hardwareConfig.audioInURL);
+
+							Vertex V_extInterface_hw_controller_rpi = txGraph.addVertex(DBCN.V.extInterface.hw.controller.rpi.cn, DBCN.V.extInterface.hw.controller.rpi.cn);
+							V_extInterface_hw_controller_rpi.setProperty(LP.data, hardwareConfig.rpiURL);
+
+							txGraph.finalizeTask();
+						} catch (YamlException | FileNotFoundException e) {
+							e.printStackTrace();
+							txGraph.rollback();
 							continue;
 						}
 					}

@@ -52,12 +52,14 @@ public abstract class YmlDefine {
 		public String opencvJarPath;
 		public int WMRequestListenerPort;	//The WM's personal external request listening thread for unblock main WM thread purposes.
 		public String DBCredentialConfigFilePath;
+		public String extHardwareConfigFilePath;
 
 		public ConsoleConfig() {
 			defaultTargetNodeId = "";
 			opencvJarPath = "";
 			WMRequestListenerPort = -1;
 			DBCredentialConfigFilePath = "";
+			extHardwareConfigFilePath = "";
 		}
 	}
 
@@ -159,6 +161,7 @@ public abstract class YmlDefine {
 		public static final String forceRemoveCrawler = "forceRemoveCrawler";
 		public static final String forceRemoveSTMWorker = "forceRemoveSTMWorker";
 		public static final String forceRemoveWMWorker = "forceRemoveWMWorker";
+		public static final String updateExtHardwarePath = "updateExtHardwarePath";
 	}
 
 	/**
@@ -180,10 +183,11 @@ public abstract class YmlDefine {
 	/**
 	 * External hardware configuration path, to setup the system external interfaces.
 	 */
-	public class ExternalIOConfig {
+	public static class ExternalIOConfig {
 		public String visualInURL;
 		public String audioInURL;
 		public String audioOutPath;
+		public String rpiURL;
 		public String motor1InURL;
 		public String motor2InURL;
 		public String motor3InURL;
