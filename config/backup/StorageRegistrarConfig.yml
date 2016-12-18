@@ -2,6 +2,7 @@
 DBCredentialConfigFilePath: config/DBLoginCredential.yml
 backUpAfterMilli: 2000
 currentStorageCount: 0
-hostName: 192.168.1.199
+#IP address of the host OR localhost
+hostName: localhost
 port: 4567
 version: ISRA
