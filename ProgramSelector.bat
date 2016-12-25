@@ -1,3 +1,3 @@
 @echo off
-java -jar ISRA.jar
+java -Djava.library.path=ext/ -jar ISRA.jar
 pause
