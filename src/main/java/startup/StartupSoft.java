@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -121,8 +124,19 @@ public class StartupSoft {
 //		System.loadLibrary("opencv_java300");
 		if (config.opencvJarPath.equals(""))
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		else
-			System.load(config.opencvJarPath);
+		else {
+			//java demands it to be absolute path, this get absolute path from path provided by user, either absolute or relative.
+			//http://stackoverflow.com/questions/17351043/how-to-get-absolute-path-to-file-in-resources-folder-in-your-project
+			String opencvAbsolutePath = "";
+			try {
+				URL resource = StartupSoft.class.getResource(config.opencvJarPath);
+				opencvAbsolutePath = Paths.get(resource.toURI()).toFile().getAbsolutePath();
+			} catch (URISyntaxException e) {
+				throw new IllegalStateException("Unable to get specified opencv jar file.", e);
+			}
+
+			System.load(opencvAbsolutePath);
+		}
 
 		//Connect to any server specified in config file.
 		//http://stackoverflow.com/questions/35053001/orientdb-cant-get-graph-instance-using-remote-from-java
