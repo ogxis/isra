@@ -188,8 +188,8 @@ public class Logger implements Runnable {
 			if (lastTime == -1l)
 				lastTime = currentTime;
 
-			//Fetch data until the queue is empty.
-			while (true) {
+			//Fetch data until the queue is empty OR called to halt.
+			while (!halt.get()) {
 				LogData ld = logPool.poll();
 				if (ld != null) {
 					polledLog.add(ld);

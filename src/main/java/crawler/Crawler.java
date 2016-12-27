@@ -263,7 +263,7 @@ public class Crawler implements Runnable {
 		try {
 			startService();
 		}
-		catch(Error e) {
+		catch(Error | Exception e) {
 			StartupSoft.logger.log(logCredential, LVL.FATAL, CLA.EXCEPTION, "", e);
 		}
 	}

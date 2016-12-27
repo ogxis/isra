@@ -707,7 +707,7 @@ public class StartupSoft {
 		try {
 			startService(args);
 		}
-		catch (Error e) {
+		catch (Error | Exception e) {
 			try {
 				logger.log(logCredential, LVL.FATAL, CLA.EXCEPTION, "", e);
 				logger.halt.set(true);
