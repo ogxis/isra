@@ -407,7 +407,7 @@ public class STMServer implements Runnable {
 
 								byte[] imgData = new byte[4096];
 								if (mockDevice) {
-									Path pathImg = Paths.get("src/main/resources/mockedData/mockedImg.jpg");
+									Path pathImg = Paths.get("resources/mockedData/mockedImg.jpg");
 									try {
 										imgData = Files.readAllBytes(pathImg);
 									} catch (IOException e) {
@@ -492,7 +492,7 @@ public class STMServer implements Runnable {
 								//4410 is 100ms precision + 46 byte of header.
 								byte[] audioData = null;
 								if (mockDevice) {
-									Path pathAudio = Paths.get("src/main/resources/mockedData/mockedAudio.wav");
+									Path pathAudio = Paths.get("resources/mockedData/mockedAudio.wav");
 									try {
 										audioData = Files.readAllBytes(pathAudio);
 									} catch (IOException e) {
@@ -529,7 +529,7 @@ public class STMServer implements Runnable {
 
 										//Set audio header.
 										//Select the sample length to extract header from. Tenth means 100ms, thus 4410 data (4410 * 10 = 44100hz, 100ms * 10 = 1s)
-										Path path = Paths.get("src/main/resources/audioICL/audioHeader/tenthSecSample.wav");
+										Path path = Paths.get("resources/audioICL/audioHeader/tenthSecSample.wav");
 										try {
 											byte[] data = Files.readAllBytes(path);
 											ICL.Audio.setAudioDataHeader(data);

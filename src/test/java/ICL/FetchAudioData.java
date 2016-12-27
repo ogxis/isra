@@ -47,7 +47,7 @@ public class FetchAudioData {
 		}
 
 		try {
-			FileUtils.writeByteArrayToFile(new File("src/test/resources/audioICL/temp/audioConcatenatedResult"), finalResult);
+			FileUtils.writeByteArrayToFile(new File("resources/test/audioICL/temp/audioConcatenatedResult"), finalResult);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

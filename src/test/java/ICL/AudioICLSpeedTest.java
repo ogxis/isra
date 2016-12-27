@@ -25,7 +25,7 @@ public class AudioICLSpeedTest {
 		long startTime = System.currentTimeMillis();
 
 		//Select the sample length to extract header from. Tenth means 100ms, thus 4410 data (4410 * 10 = 44100hz, 100ms * 10 = 1s)
-		Path path = Paths.get("src/main/resources/audioICL/audioHeader/tenthSecSample.wav");
+		Path path = Paths.get("resources/audioICL/audioHeader/tenthSecSample.wav");
 		try {
 			byte[] data = Files.readAllBytes(path);
 			ICL.Audio.setAudioDataHeader(data);
@@ -83,7 +83,7 @@ public class AudioICLSpeedTest {
 
 		for (int i=0; i<audioDataList.size(); i++) {
 			try {
-				FileUtils.writeByteArrayToFile(new File("src/test/resources/audioICL/temp/audioConcat/a" + i +".wav"), Util.concatByteArray(ICL.Audio.getAudioDataHeader(), audioDataList.get(i)));
+				FileUtils.writeByteArrayToFile(new File("resources/test/audioICL/temp/audioConcat/a" + i +".wav"), Util.concatByteArray(ICL.Audio.getAudioDataHeader(), audioDataList.get(i)));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -41,7 +41,7 @@ public abstract class ICL {
 	public static void init() {
 		//Setup the audio header, using 100ms per input latency.
 		//Select the sample length to extract header from. Tenth means 100ms, thus 4410 data (4410 * 10 = 44100hz, 100ms * 10 = 1s)
-		Path path = Paths.get("src/main/resources/audioICL/audioHeader/tenthSecSample.wav");
+		Path path = Paths.get("resources/audioICL/audioHeader/tenthSecSample.wav");
 		try {
 			byte[] data = Files.readAllBytes(path);
 			ICL.Audio.setAudioDataHeader(data);
@@ -610,7 +610,7 @@ public abstract class ICL {
 			//Internally we uses python pydub library to make this work.
 			//Check whether user had given use the command file path, if not use the default path.
 			String commandFilePath = pythonCommandFilePath.equals("") ?
-					"python src/main/resources/audioICL/isra_audioICL_concatWav.py"
+					"python resources/audioICL/isra_audioICL_concatWav.py"
 					: pythonCommandFilePath;
 
 			//Convert rid to actual vertex.
@@ -620,7 +620,7 @@ public abstract class ICL {
 			for (String audioVertexRid : toBeConcatenatedAudioGeneralVertexList) {
 				//Audio file path must be .wav (wave format) as all of our inputs are in wav.
 				//These audioFiles are temporary and will be replaced everytime we call this function.
-				String audioFilePath = "src/main/resources/audioICL/temp/dejavuConcat/concat-" + indexCount + ".wav";
+				String audioFilePath = "resources/audioICL/temp/dejavuConcat/concat-" + indexCount + ".wav";
 				Vertex audioGeneralVertex = Util.ridToVertex(audioVertexRid, txGraph);
 				Vertex audioDataVertex = Util.traverseOnce(audioGeneralVertex, Direction.IN, DBCN.E.data, LTM.AUDIO_RAW);
 				try {
@@ -665,7 +665,7 @@ public abstract class ICL {
 
 			//Check whether user had given use the command file path, if not use the default path.
 			String commandFilePath = pythonCommandFilePath.equals("") ?
-					"python src/main/resources/audioICL/isra_audioICL_fingerprintAndRecognize.py"
+					"python resources/audioICL/isra_audioICL_fingerprintAndRecognize.py"
 					: pythonCommandFilePath;
 
 			//Append all the parameter required by the script.
@@ -703,7 +703,7 @@ public abstract class ICL {
 
 			//Check whether user had given use the command file path, if not use the default path.
 			String commandFilePath = pythonCommandFilePath.equals("") ?
-					"python src/main/resources/audioICL/isra_audioICL_fingerprintAndRecognize.py"
+					"python resources/audioICL/isra_audioICL_fingerprintAndRecognize.py"
 					: pythonCommandFilePath;
 
 			//Saves all the pattern audio data to file in order for the script to process, we cannot pass them raw binary data directly.
@@ -712,7 +712,7 @@ public abstract class ICL {
 				//Audio file path must be .wav (wave format) as all of our inputs are in wav.
 				//These audioFiles are temporary and will be replaced everytime we call this function.
 				//We must add in its default audio header as they are trimmed before storage to save space.
-				String audioPatternFilePath = "src/main/resources/audioICL/temp/dejavuRecognize/audioPattern-" + i + ".wav";
+				String audioPatternFilePath = "resources/audioICL/temp/dejavuRecognize/audioPattern-" + i + ".wav";
 				try {
 					FileUtils.writeByteArrayToFile(new File(audioPatternFilePath),
 							ICL.Audio.insertAudioDataHeader( (byte[]) audioPatternDataVertexList.get(i).getProperty(LP.data) ) );

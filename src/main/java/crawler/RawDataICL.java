@@ -473,7 +473,7 @@ public class RawDataICL {
 				audioProcessedIndex.add(0);
 		}
 		String concatCommandScriptFilePath = "";
-		String concatenatedOutputFilePath = "src/main/resources/audioICL/temp/dejavuConcat/concat.wav";
+		String concatenatedOutputFilePath = "resources/audioICL/temp/dejavuConcat/concat.wav";
 		//Concatenate all those frames into a single file for fingerprinting purposes.
 		ICL.Audio.concatenateAudioFilesByDataVertex(concatCommandScriptFilePath, concatenatedOutputFilePath, latestAudioFrameList, txGraph);
 

@@ -53,10 +53,10 @@ public class AudioICLTest {
 	public void audio_dejavu_fingerprint() {
 		//http://stackoverflow.com/questions/6295866/how-can-i-capture-the-output-of-a-command-as-a-string-with-commons-exec
 		//audio and command path can be relative path.
-		String targetAudioFilePath = "src/test/resources/audioICL/sampleInput.wav";
+		String targetAudioFilePath = "resources/test/audioICL/sampleInput.wav";
 		String operationType = " fingerprint ";
 		String resetDatabase = " true ";
-		String commandFilePath = "python src/main/resources/audioICL/isra_audioICL_fingerprintAndRecognize.py "
+		String commandFilePath = "python resources/audioICL/isra_audioICL_fingerprintAndRecognize.py "
 				+ operationType + resetDatabase + targetAudioFilePath;
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	    CommandLine commandline = CommandLine.parse(commandFilePath);
@@ -78,10 +78,10 @@ public class AudioICLTest {
 	public void audio_dejavu_recognize() {
 		//http://stackoverflow.com/questions/6295866/how-can-i-capture-the-output-of-a-command-as-a-string-with-commons-exec
 		//audio and command path can be relative path.
-		String targetAudioFilePath = "src/test/resources/audioICL/sampleInput.wav";
+		String targetAudioFilePath = "resources/test/audioICL/sampleInput.wav";
 		String operationType = " recognize ";
 		String resetDatabase = " false ";
-		String commandFilePath = "python src/main/resources/audioICL/isra_audioICL_fingerprintAndRecognize.py "
+		String commandFilePath = "python resources/audioICL/isra_audioICL_fingerprintAndRecognize.py "
 				+ operationType + resetDatabase + targetAudioFilePath;
 
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -108,15 +108,15 @@ public class AudioICLTest {
 
 	@Test
 	public void audio_wavFileConcat() {
-		String outputPath = "src/test/resources/audioICL/temp/concat.wav";
-		String concatFileName = "src/test/resources/audioICL/sampleInput.wav";
+		String outputPath = "resources/test/audioICL/temp/concat.wav";
+		String concatFileName = "resources/test/audioICL/sampleInput.wav";
 		ArrayList<String> concatFilesArr = new ArrayList<String>();
 
 		//The value has no significant, just trying to concat values.
 		for (int i=0; i<5; i++)
 			concatFilesArr.add(concatFileName);
 
-		String commandFilePath = "python src/main/resources/audioICL/isra_audioICL_concatWav.py "
+		String commandFilePath = "python resources/audioICL/isra_audioICL_concatWav.py "
 				+ outputPath + " " + Util.arrayListOfStringToStringSeparatedBySpace(concatFilesArr);
 
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -138,7 +138,7 @@ public class AudioICLTest {
 	@Test
 	public void audio_lowBandSegment() {
 		//http://stackoverflow.com/questions/4616310/convert-signed-int-2bytes-16-bits-in-double-format-with-java
-		String fileName = "src/test/resources/audioICL/cartoon001.wav";
+		String fileName = "resources/test/audioICL/cartoon001.wav";
 		Path path = Paths.get(fileName);
 		try {
 			byte[] data = Files.readAllBytes(path);
@@ -275,7 +275,7 @@ public class AudioICLTest {
 
 				//Set audio header.
 				//Select the sample length to extract header from. Tenth means 100ms, thus 4410 data (4410 * 10 = 44100hz, 100ms * 10 = 1s)
-				Path path = Paths.get("src/main/resources/audioICL/audioHeader/tenthSecSample.wav");
+				Path path = Paths.get("resources/audioICL/audioHeader/tenthSecSample.wav");
 				try {
 					byte[] data = Files.readAllBytes(path);
 					ICL.Audio.setAudioDataHeader(data);
@@ -296,7 +296,7 @@ public class AudioICLTest {
 			//Add in the header, final audio data is expected to be a self sustained audio file (playable by itself),
 			//and also to ease bookkeeping as in the future there may be many audio source with different format.
 			try {
-				FileUtils.writeByteArrayToFile(new File("src/test/resources/audioICL/temp/audioConcatBin/concat" + i), Util.concatByteArray(ICL.Audio.getAudioDataHeader(), audioDataWithoutHeader));
+				FileUtils.writeByteArrayToFile(new File("resources/test/audioICL/temp/audioConcatBin/concat" + i), Util.concatByteArray(ICL.Audio.getAudioDataHeader(), audioDataWithoutHeader));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

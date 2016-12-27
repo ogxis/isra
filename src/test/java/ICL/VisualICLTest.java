@@ -36,7 +36,7 @@ public class VisualICLTest {
 		 */
 		///--First task.
 		System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
-		String sourcePath = "src/test/resources/visualICL/sampleInput.jpg";
+		String sourcePath = "resources/test/visualICL/sampleInput.jpg";
 		Mat srcImgMat = Imgcodecs.imread(sourcePath);
 		Mat processedMat = Imgcodecs.imread(sourcePath);
 		//	        Mat srcImgMat = Imgcodecs.imread(sourcePath, Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
@@ -71,7 +71,7 @@ public class VisualICLTest {
 			//http://answers.opencv.org/question/29260/how-to-save-a-rectangular-roi/
 			//Extract the rectangle area from the original image which has color, instead of the processedMat, which is grayscale.
 			Mat outputRect = new Mat(srcImgMat, rect);
-			Imgcodecs.imwrite("src/test/resources/visualICL/temp/ICLOutput/sam" + i + ".jpg", outputRect);
+			Imgcodecs.imwrite("resources/test/visualICL/temp/ICLOutput/sam" + i + ".jpg", outputRect);
 		}
 
 		//----Second task.
@@ -82,7 +82,7 @@ public class VisualICLTest {
 		//Detect once and object and once for screen, then compare their pattern in a scale invariant way. BRISK is scale invariant.
 		MatOfKeyPoint matOfKeyPointsOriginal = new MatOfKeyPoint();
 		MatOfKeyPoint matOfKeyPointsTemplate = new MatOfKeyPoint();
-		Mat template = Imgcodecs.imread("src/test/resources/visualICL/sampleInputScaledRotated.jpg");
+		Mat template = Imgcodecs.imread("resources/test/visualICL/sampleInputScaledRotated.jpg");
 		FeatureDetector brisk = FeatureDetector.create(FeatureDetector.BRISK);
 		brisk.detect(srcImgMat, matOfKeyPointsOriginal);
 		brisk.detect(template, matOfKeyPointsTemplate);
@@ -137,8 +137,8 @@ public class VisualICLTest {
 		Features2d.drawMatches(srcImgMat, matOfKeyPointsOriginal, template, matOfKeyPointsTemplate, gm, outImg);
 		Imgproc.rectangle(outImg, new Point(ROIRect.x, ROIRect.y), new Point(ROIRect.x + ROIRect.width, ROIRect.y + ROIRect.height), new Scalar(255, 255, 255));
 		//	        Features2d.drawKeypoints(srcImgMat, matOfKeyPoints, outImg);
-		Imgcodecs.imwrite("src/test/resources/visualICL/temp/inRangeContourBounded.jpg", processedMat);
-		Imgcodecs.imwrite("src/test/resources/visualICL/temp/matchingTemplate.jpg", outImg);
+		Imgcodecs.imwrite("resources/test/visualICL/temp/inRangeContourBounded.jpg", processedMat);
+		Imgcodecs.imwrite("resources/test/visualICL/temp/matchingTemplate.jpg", outImg);
 
 		//THUS super bug, he might recognize things wrongly but be never aware of it.
 		//Calculate relevancy between the template and the extracted, identified image.
@@ -171,7 +171,7 @@ public class VisualICLTest {
 		boolean error = false;
 
 		try {
-			String sourcePath = "src/test/resources/visualICL/5x5.jpg";
+			String sourcePath = "resources/test/visualICL/5x5.jpg";
 			Mat template = Imgcodecs.imread(sourcePath);
 
 			FeatureDetector brisk = FeatureDetector.create(FeatureDetector.BRISK);
