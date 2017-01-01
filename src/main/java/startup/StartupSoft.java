@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.commons.io.output.TeeOutputStream;
 import org.opencv.core.Core;
 
 import com.esotericsoftware.yamlbeans.YamlException;
@@ -677,11 +678,17 @@ public class StartupSoft {
 		System.out.println("ISRA Node Manager");
 		try {
 			String logFileName = "log/startupSoft/" + System.currentTimeMillis();
-			System.out.println("All output will be redirected to file: " + logFileName);
-			//Set both the stdout and stderr stream to file.
-			PrintStream outputStream = new PrintStream(new FileOutputStream(logFileName));
-			System.setOut(outputStream);
-			System.setErr(outputStream);
+			System.out.println("All output will be logged to file: " + logFileName);
+
+			//Set both the stdout and stderr stream to file and console screen.
+			//http://stackoverflow.com/questions/16237546/writing-to-console-and-text-file
+		    FileOutputStream fos = new FileOutputStream(logFileName);
+		    TeeOutputStream stdout = new TeeOutputStream(System.out, fos);
+		    TeeOutputStream stderr = new TeeOutputStream(System.err, fos);
+		    PrintStream outStream = new PrintStream(stdout);
+		    PrintStream errStream = new PrintStream(stderr);
+		    System.setOut(outStream);
+		    System.setErr(errStream);
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
