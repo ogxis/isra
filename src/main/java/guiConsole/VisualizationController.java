@@ -70,9 +70,6 @@ import utilities.Util;
  */
 public class VisualizationController {
 	//Only S2DG and its variant uses opencv to stitch images, this is used to avoid double import.
-	//TODO: Make the path dynamically modifiable.
-	private boolean opencvLoaded = false;
-	private String opencvJarPath = "";
 
 	public static enum Type {
 		GRAPH2D_FULL, GRAPH2D_PARTIAL, SENSOR_PLAYBACK
@@ -494,13 +491,8 @@ public class VisualizationController {
 			}
 
 			//Load the native file if not yet loaded. Required for any opencv operation.
-			if (!opencvLoaded) {
-				opencvLoaded = true;
-				if (opencvJarPath.equals(""))
-					System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-				else
-					System.load(opencvJarPath);
-			}
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
 			//Re aggregate them into a singular representation for display purposes.
 			//Allow user to specify aggregation time frame if they are unable to make sense of what they are looking at at real time.
 			//TODO: DO NOT hardcode image size as in future it will be variable size.

@@ -30,14 +30,12 @@ public abstract class YmlDefine {
 	 */
 	public static class StartUpSoftConfig {
 		public String nodeId;		//Unique identity, will never be changed.
-		public String opencvJarPath;
 		public boolean shutdownTimeoutEnable;
 		public long shutdownTimeoutMilli;
 		public String DBCredentialConfigFilePath;
 
 		public StartUpSoftConfig() {
 			nodeId = "";
-			opencvJarPath = "";
 			shutdownTimeoutEnable = true;
 			shutdownTimeoutMilli = 300000;
 			DBCredentialConfigFilePath = "";
