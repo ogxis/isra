@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -212,7 +213,15 @@ public class StorageRegistrar {
 				//Accept connection from getStorage.
 				ServerSocket serverSocket = null;
 				try {
-					serverSocket = new ServerSocket(config.port, 50, Util.getEthIp().get(0));
+					if (config.hostName.equals("") || config.hostName == null) {
+						InetAddress localIP = Util.getEthIp().get(0);
+						serverSocket = new ServerSocket(config.port, 50, localIP);
+						config.hostName = localIP.getHostAddress();
+					}
+					else {
+						//http://stackoverflow.com/questions/5571744/java-convert-a-string-representing-an-ip-to-inetaddress
+						serverSocket = new ServerSocket(config.port, 50, InetAddress.getByName(config.hostName));
+					}
 					serverSocket.setSoTimeout( (int)config.backUpAfterMilli);
 				} catch (IOException e) {
 					throw new IllegalStateException("Failed to open server socket on port:" + config.port + "; " + e);
