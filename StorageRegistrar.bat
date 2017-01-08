@@ -1,3 +1,3 @@
 @echo off
-java -jar ISRA.jar -1 config/StorageRegistrarConfig.yml
+java -cp "lib/common/jar/*" storageRegistrar.StorageRegistrar config/StorageRegistrarConfig.yml
 pause

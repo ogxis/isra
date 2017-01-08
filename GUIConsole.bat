@@ -1,3 +1,3 @@
 @echo off
-java -jar ISRA.jar -4 config/ConsoleConfig.yml
+java -cp "lib/common/jar/*" guiConsole.Main config/ConsoleConfig.yml
 pause

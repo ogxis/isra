@@ -1,3 +1,3 @@
 @echo off
-java -Djava.library.path=ext/ -jar ISRA.jar -2 config/startupSoftConfig.yml
+java -Djava.library.path=lib/common/bin/ -cp "lib/common/jar/*" startup.StartupSoft config/startupSoftConfig.yml
 pause
