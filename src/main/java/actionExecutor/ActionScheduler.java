@@ -23,7 +23,6 @@ import pointerchange.POInterchange;
 import startup.StartupSoft;
 import stm.DBCN;
 import stm.STMClient;
-import stm.STMServer;
 import utilities.Util;
 import ymlDefine.YmlDefine.ExternalIOConfig;
 
@@ -68,7 +67,7 @@ public abstract class ActionScheduler {
 	 */
 	public static void execute(Vertex processGeneralVertex, Graph txGraph) {
 		//If uses mock device, just consume the request, mock device is for testing purposes only.
-		if (STMServer.mockDevice)
+		if (StartupSoft.mockDevice.get())
 			return;
 
 		String dataType = processGeneralVertex.getCName();

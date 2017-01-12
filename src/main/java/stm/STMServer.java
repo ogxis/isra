@@ -81,9 +81,6 @@ public class STMServer implements Runnable {
 	private String audioUrl = "";
 	private String rpiUrl = "";
 
-	//A flag to enable or disable device mocking at compile time.
-	public static final boolean mockDevice = false;
-
 	private boolean rawDataFetchStarted = false;
 
 	//Used by fetch raw audio data. Start the stream and never closes it until the end in order to keep inbound data in sync.
@@ -396,7 +393,7 @@ public class STMServer implements Runnable {
 						@Override
 						public void run() {
 							while (!isHalt()) {
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									//Mocked sleep time latency, 1000ms / 33ms = 30.3frames. For real application synchronization purposes.
 									Util.sleep(50l);
 								}
@@ -406,7 +403,7 @@ public class STMServer implements Runnable {
 								txGraph.loggerSet(StartupSoft.logger, logCredential);
 
 								byte[] imgData = new byte[4096];
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									Path pathImg = Paths.get("resources/mockedData/mockedImg.jpg");
 									try {
 										imgData = Files.readAllBytes(pathImg);
@@ -480,7 +477,7 @@ public class STMServer implements Runnable {
 						@Override
 						public void run() {
 							while (!isHalt()) {
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									//Mocked sleep time latency, 1000ms / 10 (44100 / 10 = 4410hz, 100ms) = 10frames. For real application synchronization purposes.
 									Util.sleep(100l);
 								}
@@ -491,7 +488,7 @@ public class STMServer implements Runnable {
 
 								//4410 is 100ms precision + 46 byte of header.
 								byte[] audioData = null;
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									Path pathAudio = Paths.get("resources/mockedData/mockedAudio.wav");
 									try {
 										audioData = Files.readAllBytes(pathAudio);
@@ -603,7 +600,7 @@ public class STMServer implements Runnable {
 									throw new IllegalStateException(e);
 								}
 
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									//Mocked sleep time latency, 1000ms / 10ms = 100frames. For real application synchronization purposes.
 									Util.sleep(10l);
 								}
@@ -613,12 +610,12 @@ public class STMServer implements Runnable {
 								txGraph.loggerSet(StartupSoft.logger, logCredential);
 
 								//Use the real address if not in mocking mode.
-								if (!mockDevice) {
+								if (!StartupSoft.mockDevice.get()) {
 									rpiUrl = txGraph.getFirstVertexOfClass(DBCN.V.extInterface.hw.controller.rpi.cn).getProperty(LP.data);
 								}
 
 								POInterchange POFeedbackData = new POInterchange();
-								if (mockDevice) {
+								if (StartupSoft.mockDevice.get()) {
 									POFeedbackData.motor1 = 50d;
 									POFeedbackData.motor2 = 50d;
 									POFeedbackData.motor3 = 50d;

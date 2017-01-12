@@ -33,12 +33,14 @@ public abstract class YmlDefine {
 		public boolean shutdownTimeoutEnable;
 		public long shutdownTimeoutMilli;
 		public String DBCredentialConfigFilePath;
+		public boolean mockDevice;
 
 		public StartUpSoftConfig() {
 			nodeId = "";
 			shutdownTimeoutEnable = true;
 			shutdownTimeoutMilli = 300000;
 			DBCredentialConfigFilePath = "";
+			mockDevice = false;
 		}
 	}
 

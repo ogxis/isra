@@ -3,3 +3,4 @@ DBCredentialConfigFilePath: config/DBLoginCredential.yml
 nodeId: testNode001
 shutdownTimeoutEnable: true
 shutdownTimeoutMilli: 300000
+mockDevice: false

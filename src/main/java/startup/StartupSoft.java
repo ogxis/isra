@@ -50,6 +50,10 @@ public class StartupSoft {
 	//Globally shared logger.
 	public static Logger logger;
 
+	//Mock device by supplying virtual hardware address to the system so it don't complain when device is not available.
+	//Mainly for debugging purposes, true to Enable.
+	public static AtomicBoolean mockDevice;
+
 	//Sleep for 10millisec for every db error, wait for it to become consistent again. And maximum retry count to avoid infinite waiting.
 	//Thus 10 retry + 10 millisec sleep = 100ms max delay + 10~20 milli fetch delay.
 	public static final long dbErrMaxRetryCount = 50;
@@ -173,6 +177,12 @@ public class StartupSoft {
 				thread.start();
 				logger.consoleFeedbackAddr = DBCN.V.consoleFeedback.cn;
 				logger.serverReady.set(true);
+
+				//Copy to AtomicBoolean to share by all thread, only initialized once.
+				mockDevice = new AtomicBoolean(config.mockDevice);
+
+				if (mockDevice.get())
+					logger.log(logCredential, LVL.INFO, CLA.NORM, "Device mocking enabled, can be changed at StartupSoft config file (restart required)");
 
 				//DB connected successfully. Assume db structure is already created.
 				//Get node configurations from the database. We use remote database to send and receive command/feedback from this node.
