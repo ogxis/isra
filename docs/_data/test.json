@@ -1,0 +1,26 @@
+{
+  "links": [
+    {"source": 0, "target": 1, "type":"edgeType", "data":"hellow"},
+    {"source": 0, "target": 1, "type":"edgeType"},
+    {"source": 5, "target": 1, "type":"edgeType"},
+    {"source": 3, "target": 5, "type":"edgeType"}
+    ],
+  "nodes": [
+    {"id": "n1", "size":50, "score": 50, "type": "circle", "stage": 3, "data":[{"age": 10, "name":"mrasd", "misc":217126516851628}]},
+    {"id": "n2"},
+    {"size": 10, "score": 0.2, "id": "Chenjesu", "type": "circle"},
+    {"size": 60, "score": 100, "id": "Ilwrath", "type": "circle"},
+    {"size": 10, "score": 50, "id": "Mycon", "type": "circle"},
+    {"size": 60, "score": 20, "id": "Spathi", "type": "circle"},
+    {"size": 10, "score": 1, "id": "Umgah", "type": "circle"},
+    {"id": "VUX", "type": "circle"},
+    {"size": 60, "score": 0, "id": "Guardian", "type": "square"},
+    {"size": 10, "score": 70, "id": "Broodhmome", "type": "square"},
+    {"size": 60, "score": 60, "id": "Avenger", "type": "square"},
+    {"size": 10, "score": 40, "id": "Podship", "type": "square"},
+    {"size": 60, "score": 90, "id": "Eluder", "type": "square"},
+    {"size": 10, "score": 1, "id": "Drone", "type": "square"},
+    {"id": "Intruder", "type": "square"}],
+    "totalstageindex": 3,
+    "explanation":["zero Hello, this is a pragras, hasdjm hajimete, ", "one", "two", "three"]
+}

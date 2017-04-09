@@ -1,0 +1,29 @@
+# Setup
+title:        Intelligent Self Reliance Agent
+tagline:      An Experimental Artificial General Intelligence System
+baseurl:      ""
+paginate:     1
+githuburl:       https://github.com/ogxis/isra
+
+# About/contact
+author:
+  name:       Ong Guan Xing
+  url:        https://github.com/ogxis/isra
+email: xing12397@gmail.com
+
+# Gems
+gems:
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Others
+markdown: kramdown
+
+include: ["_pages", "_data", "_sass"]
+
+exclude:
+ - Gemfile
+ - Gemfile.lock
+
+#http://stackoverflow.com/questions/16608466/connect-to-a-locally-built-jekyll-server-using-mobile-devices-in-the-lan 
+host: 0.0.0.0
